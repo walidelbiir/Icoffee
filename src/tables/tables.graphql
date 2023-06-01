@@ -1,0 +1,39 @@
+type Table {
+    number : Int!
+    status : Status!
+    orderedProducts : [Product]!
+    waiter : Waiter
+    money : Float!
+}
+
+enum Status {
+    occupiedPaid
+    occupiedNotPaid
+    free
+}
+
+type Query {
+    getTables : [Table]!
+    getLatestNumber : Int!
+    getTableByNumber(number : Int) : Table!
+    getWaiter(number : Int) : Waiter
+}
+
+# type AddTableReturn {
+#     number : Int!
+#     status : Status!
+#     orderedProducts : [Product]!
+# }
+
+input ModifyTableInput {
+    number : Int
+    status : Status
+    orderedProducts : [AddProductInput]
+    waiter : WaiterInput
+}
+
+type Mutation {
+    Addtable : Table!
+    RemoveTable (number : Int) : Boolean!
+    UpdateTable ( number : Int , input : ModifyTableInput ) : Table!
+}

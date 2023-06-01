@@ -1,0 +1,39 @@
+type Product {
+    _id : String!
+    name : String!
+    type : String!
+    price : Float!
+}
+
+
+type Query  {
+    getProducts : [Product]!
+    getProductsByType(type : String!) : [Product]!
+}
+
+input AddProductInput {
+    name : String!
+    type : String!
+    price : Float!
+}
+
+input ModifyProductInput {
+    name : String
+    type : String
+    price : Float
+}
+
+input RemoveProductInput {
+    name : String
+    type : String
+}
+
+type MutationResult {
+    success : Boolean!
+}
+
+type Mutation  {
+    addProduct(input : AddProductInput!) : Product!
+    modifyProduct(nom:String! , input : ModifyProductInput!) : Product!
+    removeProduct(input : RemoveProductInput!) : MutationResult!
+}

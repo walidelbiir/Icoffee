@@ -1,0 +1,36 @@
+type Waiter {
+    _id : ID!
+    firstname : String!
+    lastname : String!
+    joined_at : String!
+    numero_tel : Int!
+    money : FLoat!
+}
+
+input OrderProductInput{
+    name : String!
+    type : String
+}
+
+type Query{
+    getWaiters : [Waiter]!
+    getWaitersCount : Int!
+    getWaiterByName(firstname : String! , lastname : String) : Waiter!
+    getTablesofwaiter( input : WaiterInput!) : [Int]!
+}
+
+input WaiterInput{
+    first : String!
+    last : String!
+    numero_tel : Int
+}
+
+type Mutation {
+    AddWaiter(input : WaiterInput!) : Waiter!
+    RemoveWaiter(input : WaiterInput!) : Boolean! 
+    MarkTablePaid(input : WaiterInput! , number : Int!) : Boolean!
+    ClearTable(input : WaiterInput! , number : Int!) : Boolean!
+    ConfirmCommand(input : WaiterInput! , number : Int!) : Boolean!
+    AddProductTable(input : WaiterInput! ,name : String! , number : Int!) : Boolean!
+    RemoveProductTable(input : WaiterInput! , name : String! , number : Int!) : Boolean!
+}
