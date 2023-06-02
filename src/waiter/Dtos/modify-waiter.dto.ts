@@ -5,4 +5,4 @@ import { WaiterEntity } from "../waiter.entity";
 export class ModifyWaiterDTO extends PartialType(WaiterEntity) {
     
 
-}
+} 

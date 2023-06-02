@@ -51,13 +51,14 @@ export class TablesService {
         table.money += product.price;
         return product;
     }
-    
+     
     async UpdateTable(num : number , input : UpdateTableDto) {
         const table =  await this.getTableByNumber(num)
         const {waiter , number , orderedproducts , status , money } = input
         if(number) table.number = number
         if(waiter) {
-            table.waiter = waiter
+            table.waiter.firstname = waiter.first
+            table.waiter.lastname = waiter.last
         }
         if(orderedproducts){ 
             const copy = JSON.parse(JSON.stringify(orderedproducts)) as typeof orderedproducts;

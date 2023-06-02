@@ -1,5 +1,4 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { LocaleStringComparer } from '@ts-morph/common';
 import { TablesService } from 'src/tables/tables.service';
 import { WaiterInfoDto } from './Dtos/add-waiter.dto';
 import { WaiterService } from './waiter.service';
@@ -9,15 +8,9 @@ export class WaiterResolver {
 
     constructor(private readonly WaiterService : WaiterService,
         private readonly TableService : TablesService){}
-    // AddWaiter(input : WaiterInput!) : Waiter!
-    // RemoveWaiter(input : WaiterInput!) : Waiter! 
-    // MarkTablePaid(input : WaiterInput! , number : Int!) : Boolean!
-    // ClearTable(input : WaiterInput! , number : Int!) : Boolean!
-    // ConfirmCommand(input : WaiterInput! , number : Int!) : Boolean!
-    // AddProductTable(input : WaiterInput! ,name : String! , number : Int!) : Boolean!
-    // RemoveProductTable(input : WaiterInput! , name: String! , number : Int!) : Boolean!
+        
     @Mutation()
-    async AdddWaiter(@Args('input') info : WaiterInfoDto) {
+    async AddWaiter(@Args('input') info : WaiterInfoDto) {
         return (await this.WaiterService.addWaiter(info)).toObject()
     }
 
@@ -42,7 +35,7 @@ export class WaiterResolver {
     }
 
     @Mutation() 
-    async AddproductTable(@Args('input') input:WaiterInfoDto , @Args('name') name : string , @Args('number') number : number) {
+    async AddProductTable(@Args('input') input:WaiterInfoDto , @Args('name') name : string , @Args('number') number : number) {
         return await this.WaiterService.addProduct(input , name , number)
     }
 
@@ -73,6 +66,13 @@ export class WaiterResolver {
         return (await this.TableService.getTablesByWaiter(input)).forEach((table) => {
             tables.push(table.toObject().number)
         })
+    }
+    
+    
+    @Mutation()
+    async AssignWaiter(@Args('input') input : WaiterInfoDto , @Args('number') number : number) {
+        await this.WaiterService.assignTable(input , number)
+        return true
     }
 
 

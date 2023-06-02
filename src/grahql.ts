@@ -69,11 +69,13 @@ export abstract class IQuery {
 
     abstract getWaiter(number?: Nullable<number>): Nullable<Waiter> | Promise<Nullable<Waiter>>;
 
-    abstract getWaiters(): Nullable<Waiter>[] | Promise<Nullable<Waiter>[]>;
+    abstract getWaiters(): Nullable<WaiterResponse>[] | Promise<Nullable<WaiterResponse>[]>;
 
     abstract getWaitersCount(): number | Promise<number>;
 
-    abstract getWaiterByName(firstname: string, lastname?: Nullable<string>): Waiter | Promise<Waiter>;
+    abstract getWaiterByName(firstname: string, lastname?: Nullable<string>): WaiterResponse | Promise<WaiterResponse>;
+
+    abstract getTablesofwaiter(input: WaiterInput): Nullable<number>[] | Promise<Nullable<number>[]>;
 }
 
 export class MutationResult {
@@ -93,9 +95,21 @@ export abstract class IMutation {
 
     abstract UpdateTable(number?: Nullable<number>, input?: Nullable<ModifyTableInput>): Table | Promise<Table>;
 
-    abstract AddWaiter(input: WaiterInput): Waiter | Promise<Waiter>;
+    abstract AddWaiter(input: WaiterInput): WaiterResponse | Promise<WaiterResponse>;
 
-    abstract RemoveWaiter(input: WaiterInput): Waiter | Promise<Waiter>;
+    abstract RemoveWaiter(input: WaiterInput): boolean | Promise<boolean>;
+
+    abstract MarkTablePaid(input: WaiterInput, number: number): boolean | Promise<boolean>;
+
+    abstract ClearTable(input: WaiterInput, number: number): boolean | Promise<boolean>;
+
+    abstract ConfirmCommand(input: WaiterInput, number: number): boolean | Promise<boolean>;
+
+    abstract AddProductTable(input: WaiterInput, name: string, number: number): boolean | Promise<boolean>;
+
+    abstract RemoveProductTable(input: WaiterInput, name: string, number: number): boolean | Promise<boolean>;
+
+    abstract AssignWaiter(input: WaiterInput, number: number): boolean | Promise<boolean>;
 }
 
 export class Table {
@@ -103,15 +117,25 @@ export class Table {
     status: Status;
     orderedProducts: Nullable<Product>[];
     waiter?: Nullable<Waiter>;
+    money: number;
 }
 
 export class Waiter {
     _id: string;
-    firstname: string;
-    lastname: string;
+    firstname?: Nullable<string>;
+    lastname?: Nullable<string>;
     joined_at: string;
-    tables: Nullable<Table>[];
     numero_tel: number;
+    money: number;
+}
+
+export class WaiterResponse {
+    _id: string;
+    firstname?: Nullable<string>;
+    lastname?: Nullable<string>;
+    joined_at?: Nullable<string>;
+    numero_tel?: Nullable<number>;
+    money?: Nullable<number>;
 }
 
 type Nullable<T> = T | null;

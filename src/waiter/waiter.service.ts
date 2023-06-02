@@ -34,7 +34,8 @@ export class WaiterService {
 
     async addWaiter(input : WaiterInfoDto) {
         const joined = {joined_at : new Date().toISOString()}
-        var waiter = Object.assign({} , input , joined )
+        const infos = {firstname : input.first , lastname : input.last , numero_tel : input.numero_tel}
+        var waiter = Object.assign({} , infos , joined )
         const createdwaiter =  new this.WaiterModel(waiter)
         return await createdwaiter.save()
     }

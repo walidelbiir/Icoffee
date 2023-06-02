@@ -10,6 +10,6 @@ import { TablesController } from './tables.controller';
   providers: [TablesService, TablesResolver],
   exports : [TablesService , TablesResolver ],
   controllers: [TablesController]
-})
+}) 
 export class TablesModule {}
   

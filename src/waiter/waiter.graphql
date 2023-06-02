@@ -1,21 +1,29 @@
 type Waiter {
     _id : ID!
-    firstname : String!
-    lastname : String!
+    firstname : String
+    lastname : String
     joined_at : String!
     numero_tel : Int!
-    money : FLoat!
+    money : Float!
 }
 
+type WaiterResponse {
+    _id : ID!
+    firstname : String
+    lastname : String
+    joined_at : String
+    numero_tel : Int
+    money : Float
+}
 input OrderProductInput{
     name : String!
     type : String
 }
 
 type Query{
-    getWaiters : [Waiter]!
+    getWaiters : [WaiterResponse]!
     getWaitersCount : Int!
-    getWaiterByName(firstname : String! , lastname : String) : Waiter!
+    getWaiterByName(firstname : String! , lastname : String) : WaiterResponse!
     getTablesofwaiter( input : WaiterInput!) : [Int]!
 }
 
@@ -26,11 +34,12 @@ input WaiterInput{
 }
 
 type Mutation {
-    AddWaiter(input : WaiterInput!) : Waiter!
+    AddWaiter(input : WaiterInput!) : WaiterResponse!
     RemoveWaiter(input : WaiterInput!) : Boolean! 
     MarkTablePaid(input : WaiterInput! , number : Int!) : Boolean!
     ClearTable(input : WaiterInput! , number : Int!) : Boolean!
     ConfirmCommand(input : WaiterInput! , number : Int!) : Boolean!
     AddProductTable(input : WaiterInput! ,name : String! , number : Int!) : Boolean!
     RemoveProductTable(input : WaiterInput! , name : String! , number : Int!) : Boolean!
+    AssignWaiter(input : WaiterInput! , number : Int!) : Boolean!
 }

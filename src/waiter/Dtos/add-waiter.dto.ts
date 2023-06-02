@@ -9,7 +9,7 @@ export class WaiterInfoDto {
     
     @Field()
     last : string;
-
+ 
     @Field(() => Int , {nullable : true})
     numero_tel ?: number
 }
